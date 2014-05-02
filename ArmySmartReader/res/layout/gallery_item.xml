@@ -1,0 +1,14 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="#564" >
+    <ImageView
+    android:id="@+id/gallery_item_imageView"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:layout_gravity="center"
+    android:contentDescription="test"
+    android:scaleType="fitXY"  />
+
+</LinearLayout>

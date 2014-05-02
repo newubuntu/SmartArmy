@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/news_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/news_item_bg"
+    android:orientation="vertical" >
+
+        <com.dodowaterfall.widget.ScaleImageView
+            android:id="@+id/news_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@null"
+            android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/news_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:singleLine="false"
+        android:text="test 1"
+        android:textColor="#0C1B12"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/news_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:gravity="right"
+        android:text="test 2"
+        android:textColor="#9f9f9f"
+        android:textSize="14sp" />
+
+</LinearLayout>

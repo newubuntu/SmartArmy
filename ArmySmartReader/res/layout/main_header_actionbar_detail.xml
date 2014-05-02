@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_header_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/icon_bg_header"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <FrameLayout
+        android:layout_width="50.0dip"
+        android:layout_height="fill_parent"
+        android:visibility="visible" >
+
+        <Button
+            android:id="@+id/h_menu_bnt_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/menu_back" />
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/main_header_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.0"
+        android:src="@drawable/text_header" />
+
+    <FrameLayout
+        android:id="@+id/fram_detail_loading"
+        android:layout_width="50.0dip"
+        android:layout_height="fill_parent"
+        android:visibility="visible" >
+
+        <ProgressBar
+            android:id="@+id/progressBar_detail"
+            style="@style/GenericProgressIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/fram_detail_shareds"
+        android:layout_width="50.0dip"
+        android:layout_height="fill_parent"
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/h_menu_shared"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/menu_shared" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="50.0dip"
+        android:layout_height="fill_parent"
+        android:visibility="visible" >
+
+        <Button
+            android:id="@+id/h_menu_web"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/menu_web" />
+    </FrameLayout>
+
+</LinearLayout>
