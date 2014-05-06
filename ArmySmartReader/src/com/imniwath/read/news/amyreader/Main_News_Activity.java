@@ -311,7 +311,7 @@ public class Main_News_Activity extends BaseActivity implements IXListViewListen
 					}
 				}
 			} else {
-				toastshow("เธ�เน�เธญเธกเธนเธฅเน�เธกเน�เธ–เธนเธ�เธ•เน�เธญเธ� !");
+				toastshow("ข้อมูลไม่ถูกต้อง !");
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -402,6 +402,10 @@ public class Main_News_Activity extends BaseActivity implements IXListViewListen
 		if (Mterm.getMenutype()== 1) {
 			Intent in = new Intent(getApplicationContext(),
 					PhotoCategoryActivity.class);
+			startActivity(in);
+		}else if(Mterm.getMenutype()== 2){
+			Intent in = new Intent(getApplicationContext(),
+					BelongGroupActivity.class);
 			startActivity(in);
 		} else {
 			reloadList();

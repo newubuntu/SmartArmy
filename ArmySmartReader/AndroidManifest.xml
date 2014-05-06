@@ -55,6 +55,8 @@
             android:name="photoPagerActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
+        <activity android:name="BelongGroupActivity"></activity>
+        <activity android:name="BelongToCategoryActivity"></activity>
     </application>
 
 </manifest>

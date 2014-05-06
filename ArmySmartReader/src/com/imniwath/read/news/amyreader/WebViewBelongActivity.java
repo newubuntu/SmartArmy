@@ -12,7 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
-public class WebViewActivity extends Activity {
+public class WebViewBelongActivity extends Activity {
 	private WebView webView;
 	private Button mback;
 	@Override
@@ -28,7 +28,7 @@ public class WebViewActivity extends Activity {
 		mback.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) { 
-	        	Intent in=new Intent(WebViewActivity.this, News_Detailactivity.class);
+	        	Intent in=new Intent(WebViewBelongActivity.this, News_Detailactivity.class);
 				startActivity(in);
 				finish();
 			}

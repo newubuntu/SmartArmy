@@ -6,9 +6,9 @@
 
     <include
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        layout="@layout/main_header_actionbar_photo_emtry" />
-
+        android:layout_height="50dp" 
+        layout="@layout/main_header_actionbar_back" />
+      <!-- main_header_actionbar_photo_emtry -->
     <include
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
