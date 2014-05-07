@@ -10,33 +10,54 @@ import com.dodowaterfall.widget.ScaleImageView;
 import com.imniwath.android.bitmapfun.util.ImageFetcher;
 import com.imniwath.read.news.amyreader.R;
 import com.imniwath.read.news.bean.news_bean;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class adapterNews extends BaseAdapter {
 	private Context mContext;
     private ArrayList<news_bean> list_news_obj;
     private XListView mListView;
-    public  ImageFetcher mImageFetcher;
-    
+   // public  ImageFetcher mImageFetcher;
+    DisplayImageOptions options;
+    protected ImageLoader imageLoader = ImageLoader.getInstance();
     public adapterNews(Context context, XListView xListView) {
         mContext = context;
         list_news_obj = new ArrayList<news_bean>();
         mListView = xListView;
-        mImageFetcher=new ImageFetcher(mContext, 240);
-        mImageFetcher.setLoadingImage(R.drawable.empty_photo);
+       // mImageFetcher=new ImageFetcher(mContext, 240);
+       // mImageFetcher.setLoadingImage(R.drawable.empty_photo);
+		options = new DisplayImageOptions.Builder()
+		.showImageOnLoading(R.drawable.loading)
+		.showImageForEmptyUri(R.drawable.ic_empty)
+		.showImageOnFail(R.drawable.ic_error).cacheInMemory(true)
+		.cacheOnDisc(true).considerExifParams(true)
+		.imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+		.bitmapConfig(Bitmap.Config.RGB_565)
+		.displayer(new FadeInBitmapDisplayer(400)).build();
     }
     public void clearItemm(){
     	if(list_news_obj!=null){list_news_obj.clear();}
+    }
+    public void stopimageloader(){
+    	imageLoader.stop();
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -46,7 +67,8 @@ public class adapterNews extends BaseAdapter {
             LayoutInflater layoutInflator = LayoutInflater.from(parent.getContext());
             convertView = layoutInflator.inflate(R.layout.row_main_news, null);
             holder = new ViewHolder();
-            holder.imageView = (ScaleImageView) convertView.findViewById(R.id.news_pic);
+        //    holder.imageView = (ScaleImageView) convertView.findViewById(R.id.news_pic);
+            holder.imageView=(ImageView) convertView.findViewById(R.id.news_pic);
             holder.contentView = (TextView) convertView.findViewById(R.id.news_title);
             holder.timesView = (TextView) convertView.findViewById(R.id.news_time);
             convertView.setTag(holder);
@@ -58,13 +80,38 @@ public class adapterNews extends BaseAdapter {
 		}
 		
         holder = (ViewHolder) convertView.getTag();
-        holder.imageView.setImageWidth(iterm_list.getWidth());
-        holder.imageView.setImageHeight(iterm_list.getHeight());
+      //  holder.imageView.setImageWidth(iterm_list.getWidth());
+      //  holder.imageView.setImageHeight(iterm_list.getHeight());
         holder.contentView.setText(summary);
         holder.timesView.setText("อ่าน "+iterm_list.getRead()+" ครั้ง");
       //holder.contentView.setText(iterm_list.getTimes());
-        mImageFetcher.loadImage(iterm_list.getImages(), holder.imageView);
-        
+      //  mImageFetcher.loadImage(iterm_list.getImages(), holder.imageView);
+ 	   imageLoader.displayImage(iterm_list.getImages(), holder.imageView,
+ 				options, new ImageLoadingListener() {
+ 					@Override
+ 					public void onLoadingStarted(String arg0, View arg1) {
+ 					//	holder.progressBar.setProgress(0);
+ 					//	holder.progressBar.setVisibility(View.VISIBLE);
+ 					}
+
+ 					@Override
+ 					public void onLoadingFailed(String arg0, View arg1,
+ 							FailReason arg2) {
+ 						//holder.progressBar.setVisibility(View.GONE);
+ 						imageLoader.stop(); 
+ 					}
+
+ 					@Override
+ 					public void onLoadingComplete(String arg0, View arg1,
+ 							Bitmap arg2) {
+ 						//holder.progressBar.setVisibility(View.GONE);
+ 					}
+
+ 					@Override
+ 					public void onLoadingCancelled(String arg0, View arg1) {
+ 						// holder.progressBar.setVisibility(View.GONE);
+ 					}
+ 				});
         /*
         convertView.setOnClickListener(new OnClickListener() {
 			@Override
@@ -76,7 +123,7 @@ public class adapterNews extends BaseAdapter {
     }
 
     class ViewHolder {
-        ScaleImageView imageView;
+        ImageView imageView;
         TextView contentView;
         TextView timesView;
     }

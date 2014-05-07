@@ -12,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,13 +22,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.huewu.pla.lib.internal.PLA_AdapterView;
 import com.huewu.pla.lib.internal.PLA_AdapterView.OnItemClickListener;
 import com.imniwath.amy.utility.API;
 import com.imniwath.amy.utility.config.Config;
-import com.imniwath.android.bitmapfun.util.ImageFetcher;
 import com.imniwath.read.news.adapter.adapterNews;
 import com.imniwath.read.news.bean.news_bean;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -52,6 +51,7 @@ public class Main_News_Activity extends BaseActivity implements IXListViewListen
 	private Button bntreflash;
 	private Button bntopen_menu;
 	private Button bnt_logout;
+	private TextView text_sub_h;
 	/**
 	 * 
 	 * @param pageindex
@@ -59,15 +59,13 @@ public class Main_News_Activity extends BaseActivity implements IXListViewListen
 	 *            1.เน€เธฅเธทเน�เธญเธ�เธ�เธถเน�เธ� 2.เน€เธฅเธทเน�เธญเธ�เธฅเธ�
 	 */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
-                               WindowManager.LayoutParams.FLAG_FULLSCREEN);
+	public void onCreate(Bundle savedInstanceState) {   
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_news_layout);
 		bnt_logout=(Button) findViewById(R.id.h_menu_logout);
 		bntopen_menu=(Button) findViewById(R.id.h_menu_bnt_back);
 		bntreflash=(Button) findViewById(R.id.h_menu_shared);
+		text_sub_h=(TextView) findViewById(R.id.text_sub_h);
 	    bntopen_menu.setOnClickListener(new OnClickListener() {	
 			@Override
 			public void onClick(View v) {
@@ -133,10 +131,11 @@ public class Main_News_Activity extends BaseActivity implements IXListViewListen
 	protected void onDestroy() {
 		super.onDestroy();
 		mAdapterView.stopRefresh();
-		mAdapter.mImageFetcher.setExitTasksEarly(true);
+	//	mAdapter.mImageFetcher.setExitTasksEarly(true);
 		if (lastRequest != null) {
 			lastRequest.cancel(true);
 		}
+		mAdapter.stopimageloader();
 	}
 	@Override
 	protected void onResume() {
@@ -144,7 +143,7 @@ public class Main_News_Activity extends BaseActivity implements IXListViewListen
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yy");
 		String formattedDate = dateFormat.format(new Date()).toString();
 		mAdapterView.setRefreshTime(formattedDate);
-		mAdapter.mImageFetcher.setExitTasksEarly(false);
+	//	mAdapter.mImageFetcher.setExitTasksEarly(false);
 		mAdapterView.setAdapter(mAdapter);
 		
 		Intent intent = getIntent();
@@ -234,7 +233,7 @@ public class Main_News_Activity extends BaseActivity implements IXListViewListen
 												Config.f_feeds_content);
 									}
 								} else {
-									toastshow("เธ�เน�เธญเธกเธนเธฅเน�เธกเน�เธ–เธนเธ�เธ•เน�เธญเธ� !");
+									toastshow("ข้อมูลไม่ถูกต้อง !");
 								}
 							} catch (JSONException e) {
 								e.printStackTrace();
@@ -257,7 +256,7 @@ public class Main_News_Activity extends BaseActivity implements IXListViewListen
 								String responseString, Throwable throwable) {
 							Log.e("niwath", "onFailure 2");
 							Toast.makeText(getApplicationContext(),
-									"เน�เธกเน�เธ�เธ�เธ�เน�เธญเธกเธนเธฅ !", 300).show();
+									"ไม่พบข้อมูล !", 1200).show();
 							if (gettype() == 2) {
 								mAdapterView.stopLoadMore();
 							} else {
@@ -408,6 +407,8 @@ public class Main_News_Activity extends BaseActivity implements IXListViewListen
 					BelongGroupActivity.class);
 			startActivity(in);
 		} else {
+			String menu=Mterm.getName().isEmpty() ?"":Mterm.getName();
+			text_sub_h.setText(menu);
 			reloadList();
 		}
 	}

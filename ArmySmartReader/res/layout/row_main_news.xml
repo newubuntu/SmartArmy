@@ -5,13 +5,23 @@
     android:layout_height="wrap_content"
     android:background="@drawable/news_item_bg"
     android:orientation="vertical" >
-
+ <!--  
         <com.dodowaterfall.widget.ScaleImageView
             android:id="@+id/news_pic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@null"
             android:scaleType="fitXY" />
+      -->
+
+        <ImageView
+            android:id="@+id/news_pic"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:maxWidth="100dp"
+            android:paddingRight="10dp"
+            android:scaleType="fitXY"
+            android:src="@null" />
 
     <TextView
         android:id="@+id/news_title"
@@ -21,7 +31,9 @@
         android:singleLine="false"
         android:text="test 1"
         android:textColor="#0C1B12"
-        android:textSize="15sp" />
+        android:textSize="14sp" />
+
+    
 
     <TextView
         android:id="@+id/news_time"
